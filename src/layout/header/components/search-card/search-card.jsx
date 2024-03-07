@@ -1,0 +1,23 @@
+import React from "react";
+import arrow from "../../../../assets/img/arrow-down.png";
+import { Link } from "react-router-dom";
+export const SearchCard = (product) => {
+  return (
+    <Link to={`/product/${product.id}`}>
+      <div
+        onClick={() => product.setInput(false)}
+        className="hover:bg-cascading-white flex items-center justify-between border px-4 py-2 transition-all duration-300"
+      >
+        <div className="flex items-center gap-4">
+          <div className="max-w-[35px]">
+            <img src={product.img} alt="" />
+          </div>
+          <p>{product.title}</p>
+        </div>
+        <div className="max-w-[16px] rotate-[270deg]">
+          <img src={arrow} alt="" />
+        </div>
+      </div>
+    </Link>
+  );
+};
