@@ -3,9 +3,14 @@ import { SearchIcon } from "../../../../assets/icon/search-icon";
 import { useDebounce } from "../../../../hook/useDebounce";
 import { useGetAllDataQuery } from "../../../../redux/service/all-product";
 import { SearchCard } from "../search-card";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 export const Search = () => {
   const [input, setInput] = React.useState(false);
-
+  const { pathname } = useLocation();
+  useEffect(() => {
+    setInput(false);
+  }, [pathname]);
   let search = useDebounce(input);
   if (search.length <= 2) {
     search = false;
@@ -32,7 +37,7 @@ export const Search = () => {
       {!isLoading && data?.length ? (
         <div className="absolute z-50 h-[250px] overflow-y-scroll bg-white">
           {data.map((item) => (
-            <SearchCard setInput={setInput} key={item.id} {...item} />
+            <SearchCard  key={item.id} {...item} />
           ))}
         </div>
       ) : (

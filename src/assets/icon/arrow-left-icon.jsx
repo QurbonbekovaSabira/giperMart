@@ -12,7 +12,7 @@ export const ArrowLeftIcon = () => {
       <g clipPath="url(#clip0_51526_9946)">
         <path
           d="M9 19L10.41 17.59L5.83 13L22 13V11L5.83 11L10.42 6.41L9 5L2 12L9 19Z"
-          //   fill="#FF888C"
+            fill="#FF888C"
         />
       </g>
       <defs>

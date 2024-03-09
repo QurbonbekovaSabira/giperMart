@@ -4,10 +4,7 @@ import { Link } from "react-router-dom";
 export const SearchCard = (product) => {
   return (
     <Link to={`/product/${product.id}`}>
-      <div
-        onClick={() => product.setInput(false)}
-        className="hover:bg-cascading-white flex items-center justify-between border px-4 py-2 transition-all duration-300"
-      >
+      <div className="flex items-center justify-between border px-4 py-2 transition-all duration-300 hover:bg-cascading-white">
         <div className="flex items-center gap-4">
           <div className="max-w-[35px]">
             <img src={product.img} alt="" />

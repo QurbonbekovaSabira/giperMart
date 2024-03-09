@@ -11,10 +11,16 @@ import { MenuIcon } from "../../assets/icon/menu-icon";
 import { useGetCatologQuery } from "../../redux/service/catolog-get";
 import { CardModal } from "../../components/card-modal/card-modal";
 import { XIcon } from "../../assets/icon/x-icon";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 export const Header = () => {
   let [isOpen, setIsOpen] = React.useState(false);
-
+  const { pathname } = useLocation();
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
   const { data, isLoading } = useGetCatologQuery();
+
   return (
     <>
       <div className="container flex items-center justify-end gap-[24px] py-2">
