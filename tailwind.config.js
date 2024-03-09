@@ -17,7 +17,9 @@ export default {
         primary: "#E44542",
         yellow: "#F79E1B",
         aureolin: "#feee00",
+        "zunda-green": "#76bc21",
         tertiary: "#755A2F",
+        "white-edgar": "#ededed",
         heartwarming: "#ba1b1b",
         "charred-brown": " #410008",
         "darkest-dungeon": "#680012",
@@ -37,6 +39,7 @@ export default {
         "touch-of-class": "#916e6e",
         "chocolate-torte": "#362F2F",
         meridian: " #857372",
+        "basalt-grey": " #999999",
       },
       fontFamily: "Jost",
       gridAutoColumns: {

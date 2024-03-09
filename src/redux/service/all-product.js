@@ -12,7 +12,14 @@ export const allApi = createApi({
         };
       },
     }),
+    getAllIdData: build.query({
+      query: (id) => {
+        return {
+          url: `/all/${id}`,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetAllDataQuery } = allApi;
+export const { useGetAllDataQuery, useGetAllIdDataQuery } = allApi;

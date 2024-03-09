@@ -14,7 +14,7 @@ function App() {
           <Route path={page?.path} key={index} element={page.element} />
         ))}
         <Route path="product/:name" element={<CategoryName />} />
-        <Route path="product/:id" element={<SinglePage />} />
+        <Route path="data/:id" element={<SinglePage />} />
       </Route>
     </Routes>
   );

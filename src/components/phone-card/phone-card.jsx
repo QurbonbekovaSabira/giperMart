@@ -3,12 +3,13 @@ import { LikeIcon } from "../../assets/icon/like-icon";
 import { ShoppingCartIcon } from "../../assets/icon/shopping-cart-icon";
 import { Link } from "react-router-dom";
 import { LikeRedIcon } from "../../assets/icon/like-red-icon";
+
 export const PhoneCard = (product) => {
   const [like, setLike] = React.useState(false);
   return (
     <div className="w-full max-w-[240px] px-1 py-2">
       <div className="relative mb-[14px]">
-        <Link to={`/product/${product.id}`}>
+        <Link to={`/data/${product.id}`}>
           <img
             className="mx-auto max-w-[165px]"
             src={product.img}

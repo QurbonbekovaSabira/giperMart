@@ -5,7 +5,7 @@ export const categoryPage = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_APP_URL }),
   endpoints: (build) => ({
     categoryPageData: build.query({
-      query: (name, page = 1) => `/${name}/?page=${page}`,
+      query: (name) => `/${name}`,
     }),
   }),
 });
