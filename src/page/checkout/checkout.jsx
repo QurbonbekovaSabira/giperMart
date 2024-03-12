@@ -1,14 +1,26 @@
 import React from "react";
 import { loadState } from "../../config/storege";
 import { CheckoutCard } from "./components/card/checkout-card";
+import { useForm } from "react-hook-form";
 export const Checkout = () => {
   const data = loadState("product");
-  console.log(data);
-
+  const { register, reset, handleSubmit } = useForm();
   return (
-    <div className="container grid grid-cols-2 gap-7">
+    <div className="container grid grid-cols-2 gap-7 pt-[16px]">
       <div>
-        <h2>Оформление заказа</h2>
+        <h2 className="mb-[56px] text-4xl font-semibold text-carbon">
+          Оформление заказа
+        </h2>
+        <p className="mb-[12px] text-base font-normal text-vermilion-cinnabar">
+          Уже покупали у нас?
+        </p>
+        <h4 className="mb-4 text-2xl font-semibold text-carbon">
+          Контактные данные
+        </h4>
+        <form>
+          <label htmlFor="name">Контактное лицо (ФИО)</label>
+          <input type="text" className="border p-4" />
+        </form>
       </div>
       <div>
         <div className="mb-[20px] flex flex-col gap-4 border-b pb-4">
