@@ -32,6 +32,7 @@ export default {
         "cottagecore-sunset": " #ffd9d9",
         "pink-lemonade": "#ffeceb",
         "cascading-white": " #f6f6f6",
+        "white-smoke": "#f5f5f6",
         "lynx-white": "#f7f7f7",
         "white-edgar": "#ededed",
         "dark-danger": "#2c1515",
@@ -42,6 +43,7 @@ export default {
         "chocolate-torte": "#362F2F",
         meridian: " #857372",
         "basalt-grey": " #999999",
+        plaster: "#eaeaea",
       },
       fontFamily: "Jost",
       gridAutoColumns: {

@@ -16,7 +16,7 @@ import {
 const storageMiddlware = createListenerMiddleware();
 
 storageMiddlware.startListening({
-  matcher: isAnyOf(add, remove),
+  matcher: isAnyOf(add, remove, toggleAnmount),
   effect: (action, api) => {
     api.dispatch(totalPriceData());
     api.dispatch(setcount());

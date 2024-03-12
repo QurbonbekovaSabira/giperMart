@@ -8,6 +8,8 @@ import { ArrowRightIcon } from "../../assets/icon/arrow-right-icon";
 import { PhoneCard } from "../../components/phone-card";
 import { LaptopCard } from "../../components/laptop-card";
 import { Link } from "react-router-dom";
+import { CardPhoneSkeleton } from "../../components/card-phone-skeleton";
+import { BrandSkeleton } from "./components/brand-skeleton";
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -46,7 +48,8 @@ export const Home = () => {
     useGetCategoryDataQuery("notebook");
   const notebookData = noteData?.slice(0, 3);
   const telData = data?.slice(0, 6);
-  const { data: dataBrand } = useGetCategoryDataQuery("brand");
+  const { data: dataBrand, isLoading: BrandLoading } =
+    useGetCategoryDataQuery("brand");
   const { data: saleData, isLoading: saleLoading } =
     useGetCategoryDataQuery("ads");
   return (
@@ -64,11 +67,22 @@ export const Home = () => {
           </h2>
         </div>
         <div className="pl-[44px]">
-          <Slider {...settings}>
-            {data?.map((item) => (
-              <PhoneCard key={item.id} {...item} />
-            ))}
-          </Slider>
+          {!isLoading ? (
+            <>
+              {" "}
+              <Slider {...settings}>
+                {data?.map((item) => (
+                  <PhoneCard key={item.id} {...item} />
+                ))}
+              </Slider>
+            </>
+          ) : (
+            <Slider {...settings}>
+              {[...Array(5)]?.map((item, i) => (
+                <CardPhoneSkeleton key={i} />
+              ))}
+            </Slider>
+          )}
         </div>
       </section>
       <section className="bg-aureolin pb-[40px] pt-4">
@@ -114,15 +128,57 @@ export const Home = () => {
               Смартфоны и планшеты
             </h2>
             <div className="flex flex-col gap-[32px]">
-              {isLoading ? (
-                telData
-                  ?.slice(0, 3)
-                  ?.map((item) => <LaptopCard key={item.id} {...item} />)
-              ) : (
-                <>
+              {!isLoading
+                ? telData
+                    ?.slice(0, 3)
+                    ?.map((item) => <LaptopCard key={item.id} {...item} />)
+                : [...Array(3)].map((item, i) => (
+                    <div
+                      key={i}
+                      role="status"
+                      className="grid h-[157px] max-w-sm animate-pulse grid-cols-2 justify-center  gap-[40px] rounded  bg-gray-100 p-4 shadow md:p-6 "
+                    >
+                      <div className="mb-4 flex h-[120px] items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
+                        <svg
+                          className="h-10 w-full text-gray-100 dark:text-gray-300"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="currentColor"
+                          viewBox="0 0 16 20"
+                        >
+                          <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z" />
+                          <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z" />
+                        </svg>
+                      </div>
+                      <div className="flex h-[120px] flex-col justify-between">
+                        <div className="">
+                          <div className="mb-4 h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-300" />
+                          <div className="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-300" />
+                          <div className="h-2 rounded-full bg-gray-200 dark:bg-gray-300" />
+                        </div>
+                        <div className="h-2 rounded-full bg-gray-200 dark:bg-gray-300" />
+                      </div>
+                    </div>
+                  ))}
+            </div>
+          </div>
+          <div>
+            <h2 className="mb-[32px] border-b pb-[14px] text-2xl font-normal text-carbon">
+              Ноутбуки, планшеты и компьютеры
+            </h2>
+            {!isLoading ? (
+              <div className="flex flex-col gap-[32px]">
+                {notebookData?.map((item) => (
+                  <LaptopCard key={item.id} {...item} />
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col gap-[32px]">
+                {[...Array(3)].map((item, i) => (
                   <div
+                    key={i}
                     role="status"
-                    className="grid h-[157px] max-w-sm animate-pulse grid-cols-2 justify-center  gap-4 rounded  bg-gray-100 p-4 shadow md:p-6 "
+                    className="grid h-[157px] max-w-sm animate-pulse grid-cols-2 justify-center  gap-[40px] rounded  bg-gray-100 p-4 shadow md:p-6 "
                   >
                     <div className="mb-4 flex h-[120px] items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
                       <svg
@@ -145,29 +201,52 @@ export const Home = () => {
                       <div className="h-2 rounded-full bg-gray-200 dark:bg-gray-300" />
                     </div>
                   </div>
-                </>
-              )}
-            </div>
-          </div>
-          <div>
-            <h2 className="mb-[32px] border-b pb-[14px] text-2xl font-normal text-carbon">
-              Ноутбуки, планшеты и компьютеры
-            </h2>
-            <div className="flex flex-col gap-[32px]">
-              {notebookData?.map((item) => (
-                <LaptopCard key={item.id} {...item} />
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
           <div>
             <h2 className="mb-[32px] border-b pb-[14px] text-2xl font-normal text-carbon">
               Смартфоны и планшеты
             </h2>
-            <div className="flex flex-col gap-[32px]">
-              {telData?.slice(3, 6)?.map((item) => (
-                <LaptopCard key={item.id} {...item} />
-              ))}
-            </div>
+            {!isLoading ? (
+              <div className="flex flex-col gap-[32px]">
+                {telData?.slice(3, 6)?.map((item) => (
+                  <LaptopCard key={item.id} {...item} />
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col gap-[32px]">
+                {[...Array(3)].map((item, i) => (
+                  <div
+                    key={i}
+                    role="status"
+                    className="grid h-[157px] max-w-sm animate-pulse grid-cols-2 justify-center  gap-[40px] rounded  bg-gray-100 p-4 shadow md:p-6 "
+                  >
+                    <div className="mb-4 flex h-[120px] items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
+                      <svg
+                        className="h-10 w-full text-gray-100 dark:text-gray-300"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 16 20"
+                      >
+                        <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z" />
+                        <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z" />
+                      </svg>
+                    </div>
+                    <div className="flex h-[120px] flex-col justify-between">
+                      <div className="">
+                        <div className="mb-4 h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-300" />
+                        <div className="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-300" />
+                        <div className="h-2 rounded-full bg-gray-200 dark:bg-gray-300" />
+                      </div>
+                      <div className="h-2 rounded-full bg-gray-200 dark:bg-gray-300" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -178,11 +257,22 @@ export const Home = () => {
           </h2>
         </div>
         <div className="pl-[44px]">
-          <Slider {...settings}>
-            {data?.map((item) => (
-              <PhoneCard key={item.id} {...item} />
-            ))}
-          </Slider>
+          {!isLoading ? (
+            <>
+              {" "}
+              <Slider {...settings}>
+                {data?.map((item) => (
+                  <PhoneCard key={item.id} {...item} />
+                ))}
+              </Slider>
+            </>
+          ) : (
+            <Slider {...settings}>
+              {[...Array(5)]?.map((item, i) => (
+                <CardPhoneSkeleton key={i} />
+              ))}
+            </Slider>
+          )}
         </div>
       </section>
       <section className="pb-[52px] pt-[48px]">
@@ -192,11 +282,21 @@ export const Home = () => {
           </h2>
         </div>
         <div className="pl-[44px]">
-          <Slider {...settings}>
-            {noteData?.map((item) => (
-              <PhoneCard key={item.id} {...item} />
-            ))}
-          </Slider>
+          {!noteIsLoading ? (
+            <>
+              <Slider {...settings}>
+                {noteData?.map((item) => (
+                  <PhoneCard key={item.id} {...item} />
+                ))}
+              </Slider>
+            </>
+          ) : (
+            <Slider {...settings}>
+              {[...Array(5)]?.map((item, i) => (
+                <CardPhoneSkeleton key={i} />
+              ))}
+            </Slider>
+          )}
         </div>
       </section>
       <section>
@@ -205,15 +305,17 @@ export const Home = () => {
             Популярные бренды
           </h2>
           <div className="flex flex-wrap items-center gap-[30px]">
-            {dataBrand?.map((item) => (
-              <Link to={`/brand/${item.brand}`} key={item.id}>
-                <img
-                  className="h-[90px] w-[165px] object-contain"
-                  src={item.img}
-                  alt={item.brand}
-                />
-              </Link>
-            ))}
+            {!BrandLoading
+              ? dataBrand?.map((item) => (
+                  <Link to={`/brand/${item.brand}`} key={item.id}>
+                    <img
+                      className="h-[90px] w-[165px] object-contain"
+                      src={item.img}
+                      alt={item.brand}
+                    />
+                  </Link>
+                ))
+              : [...Array(12)].map((item, i) => <BrandSkeleton key={i} />)}
           </div>
         </div>
       </section>

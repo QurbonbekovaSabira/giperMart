@@ -4,8 +4,7 @@ import { BasketCard } from "./components/basket-card/basket-card";
 import { nanoid } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import img from "../../assets/img/not-found.jpg";
-import { totalPriceData } from "../../redux/reducer/product-reducer";
-import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 export const Basket = () => {
   const data = useSelector((state) => state.product.product);
   const product = loadState("product");
@@ -37,11 +36,11 @@ export const Basket = () => {
                   {product.totalPrice} Сум
                 </h4>
               </div>
-              <div>
+              <Link to={"/checkout"}>
                 <button className="text-nowrap bg-aureolin px-[100px] py-[15px] text-xl font-normal text-cannon-black">
                   Оформить заказ
                 </button>
-              </div>
+              </Link>
             </div>
           </div>
         </>
