@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 export const Header = () => {
   let [isOpen, setIsOpen] = React.useState(false);
   const { pathname } = useLocation();
-  const { count } = loadState("product");
+
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);

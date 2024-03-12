@@ -9,7 +9,7 @@ export const BrandPage = () => {
   return (
     <div className="container">
       <h2 className="mb-6 text-2xl font-semibold text-carbon">{name}</h2>
-      <div className="flex flex-wrap justify-center gap-[35px]">
+      <div className="flex flex-wrap gap-[35px]">
         {data?.map((item) => (
           <PhoneCard key={item.id} {...item} />
         ))}

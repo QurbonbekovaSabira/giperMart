@@ -9,7 +9,7 @@ export const MainLayout = () => {
         <header>
           <Header />
         </header>
-        <main className="pt-[150px]">
+        <main className="pt-[130px]">
           <Outlet />
         </main>
         <footer>

@@ -43,7 +43,10 @@ export default {
         "chocolate-torte": "#362F2F",
         meridian: " #857372",
         "basalt-grey": " #999999",
+        grey: "#808080",
         plaster: "#eaeaea",
+        "bank-vault": "#747474",
+        "folkstone-grey": "#62687b"
       },
       fontFamily: "Jost",
       gridAutoColumns: {

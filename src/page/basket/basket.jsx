@@ -9,7 +9,7 @@ export const Basket = () => {
   const data = useSelector((state) => state.product.product);
   const product = loadState("product");
   return (
-    <div className="container">
+    <div className="container mb-[75px]">
       {product?.product?.length ? (
         <>
           <h2 className="mb-[24px] mt-[24px] text-2xl font-semibold text-carbon">
