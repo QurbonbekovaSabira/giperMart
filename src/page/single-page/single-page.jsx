@@ -3,9 +3,17 @@ import { useParams } from "react-router-dom";
 import { useGetAllIdDataQuery } from "../../redux/service/all-product";
 import { StarsIcon } from "../../assets/icon/stars-icon";
 import { LikeIcon } from "../../assets/icon/like-icon";
+import { add } from "../../redux/reducer/product-reducer";
+import { useDispatch } from "react-redux";
 export const SinglePage = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const { data } = useGetAllIdDataQuery(id);
+  const [save, setSave] = React.useState(false);
+  const submit = () => {
+    dispatch(add(data));
+    setSave(true);
+  };
   if (!data) {
     return "";
   }
@@ -16,7 +24,7 @@ export const SinglePage = () => {
       </h2>
       <div className="mb-[19px] flex items-start justify-between">
         <div className="flex items-center gap-[36px]">
-          <p className="text-zunda-green flex items-center gap-[12px] text-base font-normal">
+          <p className="flex items-center gap-[12px] text-base font-normal text-zunda-green">
             <StarsIcon />
             (0)
           </p>
@@ -26,7 +34,7 @@ export const SinglePage = () => {
         </div>
         <p>арт.{data.id}</p>
       </div>
-      <span className="bg-white-edgar mb-6 block h-[1px]"></span>
+      <span className="mb-6 block h-[1px] bg-white-edgar"></span>
       <div className="flex gap-6">
         <div className="w-full max-w-[435px]">
           <img className="w-full" src={data?.img} alt="" />
@@ -57,19 +65,19 @@ export const SinglePage = () => {
           <p className="mb-4 text-lg font-medium text-carbon">Характеристики</p>
           {data?.color && (
             <div className="mb-[12px] flex items-center gap-2">
-              <p className="text-basalt-grey text-base font-normal">Цвет:</p>
+              <p className="text-base font-normal text-basalt-grey">Цвет:</p>
               <p className="text-base font-normal text-carbon">{data.color}</p>
             </div>
           )}
           {data?.rame && (
             <div className="mb-[12px] flex items-center gap-2">
-              <p className="text-basalt-grey text-base font-normal">память:</p>
+              <p className="text-base font-normal text-basalt-grey">память:</p>
               <p className="text-base font-normal text-carbon">{data.rame}</p>
             </div>
           )}
           {data?.geForce && (
             <div className="mb-[12px] flex items-center gap-2">
-              <p className="text-basalt-grey text-base font-normal">Память:</p>
+              <p className="text-base font-normal text-basalt-grey">Память:</p>
               <p className="text-base font-normal text-carbon">
                 {data.geForce}
               </p>
@@ -77,13 +85,13 @@ export const SinglePage = () => {
           )}
           {data?.core && (
             <div className="mb-[12px] flex items-center gap-2">
-              <p className="text-basalt-grey text-base font-normal">Core:</p>
+              <p className="text-base font-normal text-basalt-grey">Core:</p>
               <p className="text-base font-normal text-carbon">{data.core}</p>
             </div>
           )}
           {data?.display && (
             <div className="mb-[12px] flex items-center gap-2">
-              <p className="text-basalt-grey text-base font-normal">
+              <p className="text-base font-normal text-basalt-grey">
                 Диагональ дисплея:
               </p>
               <p className="text-base font-normal text-carbon">
@@ -93,7 +101,7 @@ export const SinglePage = () => {
           )}
           {data?.memory && (
             <div className="mb-[12px] flex items-center gap-2">
-              <p className="text-basalt-grey text-base font-normal">
+              <p className="text-base font-normal text-basalt-grey">
                 Общий объем накопителей:
               </p>
               <p className="text-base font-normal text-carbon">{data.memory}</p>
@@ -101,13 +109,13 @@ export const SinglePage = () => {
           )}
           {data?.weight && (
             <div className="mb-[12px] flex items-center gap-2">
-              <p className="text-basalt-grey text-base font-normal">Масса:</p>
+              <p className="text-base font-normal text-basalt-grey">Масса:</p>
               <p className="text-base font-normal text-carbon">{data.weight}</p>
             </div>
           )}
           {data?.details?.display && (
             <div className="mb-[12px] flex items-center gap-2">
-              <p className="text-basalt-grey text-base font-normal">
+              <p className="text-base font-normal text-basalt-grey">
                 Диагональ дисплея:
               </p>
               <p className="text-base font-normal text-carbon">
@@ -117,7 +125,7 @@ export const SinglePage = () => {
           )}
           {data?.details?.display && (
             <div className="mb-[12px] flex items-center gap-2">
-              <p className="text-basalt-grey text-base font-normal">
+              <p className="text-base font-normal text-basalt-grey">
                 Частота обновления экрана:
               </p>
               <p className="text-base font-normal text-carbon">
@@ -127,7 +135,7 @@ export const SinglePage = () => {
           )}
           {data?.details?.weight && (
             <div className="mb-[12px] flex items-center gap-2">
-              <p className="text-basalt-grey text-base font-normal">Масса:</p>
+              <p className="text-base font-normal text-basalt-grey">Масса:</p>
               <p className="text-base font-normal text-carbon">
                 {data?.details?.weight}
               </p>
@@ -135,7 +143,7 @@ export const SinglePage = () => {
           )}
           {data?.details?.security && (
             <div className="mb-[12px] flex items-center gap-2">
-              <p className="text-basalt-grey text-base font-normal">
+              <p className="text-base font-normal text-basalt-grey">
                 Безопасность:
               </p>
               <p className="text-base font-normal text-carbon">
@@ -145,7 +153,7 @@ export const SinglePage = () => {
           )}
           {data?.details?.security && (
             <div className="mb-[12px] flex items-center gap-2">
-              <p className="text-basalt-grey text-base font-normal">
+              <p className="text-base font-normal text-basalt-grey">
                 Диагональ:
               </p>
               <p className="text-base font-normal text-carbon">
@@ -154,12 +162,14 @@ export const SinglePage = () => {
             </div>
           )}
         </div>
-
         <div className="ml-auto h-[167px] w-full max-w-[340px] border px-[16px]  py-[12px]">
           <p className="mb-[21px] text-4xl font-semibold text-carbon">
             {data?.price} Сум
           </p>
-          <button className="w-full bg-aureolin py-[12px] text-base font-normal text-cannon-black">
+          <button
+            onClick={submit}
+            className={`w-full ${!save && "bg-aureolin"} ${save && "bg-vermilion-cinnabar"} py-[12px] text-base font-normal text-cannon-black`}
+          >
             В корзину
           </button>
         </div>

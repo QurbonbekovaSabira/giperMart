@@ -32,6 +32,8 @@ export default {
         "cottagecore-sunset": " #ffd9d9",
         "pink-lemonade": "#ffeceb",
         "cascading-white": " #f6f6f6",
+        "lynx-white": "#f7f7f7",
+        "white-edgar": "#ededed",
         "dark-danger": "#2c1515",
         " nisemurasaki-purple": "#442929",
         "wine-brown": "#5d3f3f",

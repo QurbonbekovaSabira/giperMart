@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { user_routes } from "./routes/user-routes";
 import { SinglePage } from "./page/single-page";
 import { CategoryName } from "./page/category-name/category-name";
+import { BrandPage } from "./page/brand-page";
 function App() {
   return (
     <Routes>
@@ -15,6 +16,7 @@ function App() {
         ))}
         <Route path="product/:name" element={<CategoryName />} />
         <Route path="data/:id" element={<SinglePage />} />
+        <Route path="brand/:name" element={<BrandPage/>}/>
       </Route>
     </Routes>
   );

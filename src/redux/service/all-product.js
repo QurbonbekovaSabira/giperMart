@@ -19,7 +19,15 @@ export const allApi = createApi({
         };
       },
     }),
+    getBrendData: build.query({
+      query: (brand) => {
+        return {
+          url: `/all`,
+          params: { title_like: brand },
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetAllDataQuery, useGetAllIdDataQuery } = allApi;
+export const { useGetAllDataQuery, useGetAllIdDataQuery,useGetBrendDataQuery } = allApi;

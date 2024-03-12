@@ -8,7 +8,6 @@ export const CardModal = (product) => {
   return (
     <Link to={`/product/${product.name}`}>
       <div
-        // onClick={nav}
         className="group flex max-w-[240px] items-center gap-4 bg-cascading-white px-[16px] py-[14px]"
       >
         <div className="max-w-[96px]">

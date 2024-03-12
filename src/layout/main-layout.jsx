@@ -5,17 +5,17 @@ import { Outlet } from "react-router-dom";
 export const MainLayout = () => {
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex h-[100vh] flex-col justify-between">
         <header>
           <Header />
         </header>
-        <main>
+        <main className="pt-[150px]">
           <Outlet />
         </main>
+        <footer>
+          <Footer />
+        </footer>
       </div>
-      <footer>
-        <Footer />
-      </footer>
     </>
   );
 };

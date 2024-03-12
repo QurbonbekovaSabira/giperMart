@@ -13,16 +13,22 @@ import { CardModal } from "../../components/card-modal/card-modal";
 import { XIcon } from "../../assets/icon/x-icon";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { loadState } from "../../config/storege";
+import { useSelector } from "react-redux";
 export const Header = () => {
   let [isOpen, setIsOpen] = React.useState(false);
   const { pathname } = useLocation();
+  const { count } = loadState("product");
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
+
+  const counter = useSelector((state) => state.product.product);
+  const length = counter.length;
   const { data, isLoading } = useGetCatologQuery();
 
   return (
-    <>
+    <div className="fixed left-0 right-0 top-0 z-50 bg-white shadow-sm shadow-basalt-grey">
       <div className="container flex items-center justify-end gap-[24px] py-2">
         <a
           className=" text-base font-normal text-sys-light-on-surface"
@@ -86,16 +92,16 @@ export const Header = () => {
             <LikeIcon /> Избранное
           </Link>
           <Link
-            to={"/backet"}
+            to={"/user/basket"}
             className="relative flex flex-col items-center text-base font-normal text-sys-light-on-surface"
           >
             <ShoppingCartIcon /> Корзина
             <span className="absolute right-[8px] top-[-13px] rounded-full bg-bloodthirsty-warlock px-[5px] py-[2px] text-xs font-medium text-white">
-              0
+              {length}
             </span>
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
