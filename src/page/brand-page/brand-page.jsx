@@ -5,9 +5,8 @@ import { PhoneCard } from "../../components/phone-card";
 const BrandPage = () => {
   const { name } = useParams();
   const { data } = useGetBrendDataQuery(name);
-  console.log(data);
   return (
-    <div className="container">
+    <div className="container py-[50px]">
       <h2 className="mb-6 text-2xl font-semibold text-carbon">{name}</h2>
       <div className="flex flex-wrap gap-[35px]">
         {data?.map((item) => (
