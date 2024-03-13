@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetBrendDataQuery } from "../../redux/service/all-product";
 import { PhoneCard } from "../../components/phone-card";
-export const BrandPage = () => {
+const BrandPage = () => {
   const { name } = useParams();
   const { data } = useGetBrendDataQuery(name);
   console.log(data);
@@ -17,3 +17,4 @@ export const BrandPage = () => {
     </div>
   );
 };
+export default BrandPage;

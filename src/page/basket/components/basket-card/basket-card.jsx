@@ -8,7 +8,6 @@ import { toggleAnmount } from "../../../../redux/reducer/product-reducer";
 import { remove } from "../../../../redux/reducer/product-reducer";
 import { loadState } from "../../../../config/storege";
 export const BasketCard = (product) => {
-  const { count } = loadState("product");
   const [counter, setCounter] = React.useState(product.userCount);
   const [price, setprice] = React.useState(product.userPrice);
   const dispatch = useDispatch();

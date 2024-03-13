@@ -5,20 +5,29 @@ import { StarsIcon } from "../../assets/icon/stars-icon";
 import { LikeIcon } from "../../assets/icon/like-icon";
 import { add } from "../../redux/reducer/product-reducer";
 import { useDispatch } from "react-redux";
-export const SinglePage = () => {
+import { loadState } from "../../config/storege";
+import { LikeRed } from "../../assets/icon/like-red";
+const SinglePage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { data } = useGetAllIdDataQuery(id);
   const [save, setSave] = React.useState(false);
+  const [newLike, setLikeData] = React.useState(false);
+  const { like } = loadState("product");
+  React.useEffect(() => {
+    setLikeData(like.some((item) => item.id == id));
+  }, [like, id]);
+
   const submit = () => {
     dispatch(add(data));
     setSave(true);
   };
-  if (!data) {
-    return "";
+
+  if (data) {
+    <h2>Loading...</h2>;
   }
   return (
-    <div className="container">
+    <div className="container pb-[20px]">
       <h2 className="mb-[14px] mt-[36px] text-2xl font-semibold text-carbon">
         {data?.title} {data?.rame}
       </h2>
@@ -28,11 +37,17 @@ export const SinglePage = () => {
             <StarsIcon />
             (0)
           </p>
-          <button className="flex items-center gap-[12px] text-base font-normal text-carbon">
-            <LikeIcon /> В избранное
-          </button>
+          {!newLike ? (
+            <button className="flex items-center gap-[12px] text-base font-normal text-carbon">
+              <LikeIcon /> В избранное
+            </button>
+          ) : (
+            <button className="flex items-center gap-[12px] text-base font-normal text-carbon">
+              <LikeRed /> В избранное
+            </button>
+          )}
         </div>
-        <p>арт.{data.id}</p>
+        <p>арт.{data?.id}</p>
       </div>
       <span className="mb-6 block h-[1px] bg-white-edgar"></span>
       <div className="flex gap-6">
@@ -177,3 +192,4 @@ export const SinglePage = () => {
     </div>
   );
 };
+export default SinglePage;

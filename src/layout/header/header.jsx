@@ -15,10 +15,12 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { loadState } from "../../config/storege";
 import { useSelector } from "react-redux";
+import { LikeRed } from "../../assets/icon/like-red";
 export const Header = () => {
   let [isOpen, setIsOpen] = React.useState(false);
   const { pathname } = useLocation();
-
+  const { like } = loadState("product");
+  const [newLike, setLike] = React.useState(like);
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
@@ -88,8 +90,11 @@ export const Header = () => {
           >
             <UserIcon /> Профиль
           </Link>
-          <Link className="flex flex-col items-center text-base font-normal text-sys-light-on-surface">
-            <LikeIcon /> Избранное
+          <Link
+            to={"/likes"}
+            className="flex flex-col items-center text-base font-normal text-sys-light-on-surface"
+          >
+            {newLike?.length ? <LikeRed /> : <LikeIcon />} Избранное
           </Link>
           <Link
             to={"/user/basket"}

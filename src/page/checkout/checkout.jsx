@@ -6,20 +6,22 @@ import { PaymeIcon } from "../../assets/icon/payme-icon";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-export const Checkout = () => {
+const Checkout = () => {
   const data = loadState("product");
   const { register, reset, handleSubmit } = useForm();
   const notify = () => toast("Заказ оформлен!");
   const navigate = useNavigate();
   const submit = (data) => {
     reset();
-    navigate("/");
     notify();
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
   };
 
   return (
     <>
-      <div className="container mb-[56px] grid grid-cols-2 gap-7 pt-[16px]">
+      <div className="container mb-[56px] grid grid-cols-2 gap-7 pt-[50px]">
         <div>
           <h2 className="mb-[56px] text-4xl font-semibold text-carbon">
             Оформление заказа
@@ -42,7 +44,7 @@ export const Checkout = () => {
                 {...register("name", { required: true })}
                 id="name"
                 type="text"
-                className="border-grey w-full border p-2"
+                className="w-full border border-grey p-2"
               />
             </div>
             <div className="mb-6 flex flex-col gap-3">
@@ -56,7 +58,7 @@ export const Checkout = () => {
                 {...register("phone", { required: true })}
                 id="phone"
                 type="text"
-                className="border-grey w-full border p-2"
+                className="w-full border border-grey p-2"
               />
             </div>
             <h4 className="mb-4 text-2xl font-semibold text-carbon">
@@ -73,7 +75,7 @@ export const Checkout = () => {
                 {...register("post", { required: true })}
                 id="post"
                 type="text"
-                className="border-grey w-full border p-2"
+                className="w-full border border-grey p-2"
               />
             </div>
             <h4 className="mb-4 text-2xl font-semibold text-carbon">
@@ -87,7 +89,7 @@ export const Checkout = () => {
                 {...register("Email", { required: true })}
                 id="Email"
                 type="text"
-                className="border-grey w-full border p-2"
+                className="w-full border border-grey p-2"
               />
             </div>
             <div className="flex gap-6">
@@ -96,7 +98,7 @@ export const Checkout = () => {
                 <p className="mb-[6px] text-xl font-normal text-carbon">
                   Стать постоянным покупателем
                 </p>
-                <p className="text-bank-vault text-base">
+                <p className="text-base text-bank-vault">
                   Вы сможете видеть историю заказов, проще делать новые и
                   получать скидки
                 </p>
@@ -105,7 +107,7 @@ export const Checkout = () => {
             <h4 className="mb-4 text-2xl font-semibold text-carbon">
               Способ оплаты
             </h4>
-            <div className="bg-white-smoke mb-[36px] flex w-[137px] items-center gap-[5px] px-5 py-[13px]">
+            <div className="mb-[36px] flex w-[137px] items-center gap-[5px] bg-white-smoke px-5 py-[13px]">
               <input id="pay" type="checkbox" />
               <label htmlFor="pay">
                 <PaymeIcon />
@@ -118,9 +120,10 @@ export const Checkout = () => {
             >
               Подтвердить заказ
             </button>
+            <ToastContainer />
           </form>
         </div>
-        <div>
+        <div className="pt-[35px]">
           <div className="mb-[20px] flex flex-col gap-4 border-b pb-4">
             {data?.product?.map((item) => (
               <CheckoutCard {...item} key={item.id} />
@@ -150,10 +153,7 @@ export const Checkout = () => {
           </div>
         </div>
       </div>
-      <div>
-        <button>Notify!</button>
-        <ToastContainer />
-      </div>
     </>
   );
 };
+export default Checkout;

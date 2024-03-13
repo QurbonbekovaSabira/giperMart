@@ -4,6 +4,7 @@ const initialState = loadState("product") || {
   product: [],
   totalPrice: 0,
   count: 0,
+  like: [],
 };
 
 const productReduser = createSlice({
@@ -71,9 +72,9 @@ const productReduser = createSlice({
       }
     },
     totalPriceData: (state, action) => {
-      const count = state.product?.reduce((a,b)=> {
-        return a + b.userPrice
-      },0)
+      const count = state.product?.reduce((a, b) => {
+        return a + b.userPrice;
+      }, 0);
 
       console.log(count);
       return { ...state, totalPrice: count };
@@ -84,9 +85,37 @@ const productReduser = createSlice({
       }, 0);
       return { ...state, count: count };
     },
+    setLike: (state, action) => {
+      const product = state.like?.find((item) => item.id === action.payload.id);
+      if (!product) {
+        return {
+          ...state,
+          like: [
+            ...state.like,
+            {
+              ...action.payload,
+            },
+          ],
+        };
+      }
+      return state;
+    },
+    removeLike: (state, action) => {
+      return {
+        ...state,
+        like: state.like.filter((item) => item.id !== action.payload.id),
+      };
+    },
   },
 });
 export default productReduser.reducer;
 
-export const { add, remove, totalPriceData, toggleAnmount, setcount } =
-  productReduser.actions;
+export const {
+  add,
+  remove,
+  totalPriceData,
+  toggleAnmount,
+  setcount,
+  setLike,
+  removeLike,
+} = productReduser.actions;

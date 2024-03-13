@@ -2,18 +2,42 @@ import React from "react";
 import { LikeIcon } from "../../assets/icon/like-icon";
 import { ShoppingCartIcon } from "../../assets/icon/shopping-cart-icon";
 import { Link } from "react-router-dom";
-import { LikeRedIcon } from "../../assets/icon/like-red-icon";
 import { useDispatch } from "react-redux";
-import { add } from "../../redux/reducer/product-reducer";
-import { useSelector } from "react-redux";
+import {
+  add,
+  remove,
+  setLike,
+  removeLike,
+} from "../../redux/reducer/product-reducer";
+import { DeleteCardIcon } from "../../assets/icon/delete-card-icon";
+import { loadState } from "../../config/storege";
+import { LikeRed } from "../../assets/icon/like-red";
 export const PhoneCard = (product) => {
-  const [like, setLike] = React.useState(false);
+  const { product: data, like: likeProduct } = loadState("product");
+  const [like, setLikeData] = React.useState(false);
+  const [addToCard, setToCard] = React.useState(false);
   const dispatch = useDispatch();
+
   const addProduct = () => {
     dispatch(add({ ...product }));
+    setToCard(true);
   };
-  const selectData = useSelector((state) => state.product.product);
-
+  React.useEffect(() => {
+    setToCard(data.some((item) => item.id === product.id));
+    setLikeData(likeProduct.some((item) => item.id === product.id));
+  }, [data, product]);
+  const removeData = () => {
+    dispatch(remove({ id: product.id }));
+    setToCard(false);
+  };
+  const likeData = () => {
+    dispatch(setLike(product));
+    setLikeData(true);
+  };
+  const removeLikeData = () => {
+    dispatch(removeLike({ id: product.id }));
+    setLikeData(false);
+  };
   return (
     <div className="w-full max-w-[240px] px-1 py-2">
       {product && (
@@ -26,12 +50,21 @@ export const PhoneCard = (product) => {
                 alt={product.title}
               />
             </Link>
-            <button
-              onClick={() => setLike(true)}
-              className="absolute right-2 top-2 text-cannon-black"
-            >
-              {like ? <LikeRedIcon /> : <LikeIcon />}
-            </button>
+            {!like ? (
+              <button
+                onClick={likeData}
+                className="absolute right-2 top-2 text-cannon-black"
+              >
+                <LikeIcon />
+              </button>
+            ) : (
+              <button
+                onClick={removeLikeData}
+                className="absolute right-2 top-2 text-cannon-black"
+              >
+                <LikeRed />
+              </button>
+            )}
           </div>
           <div className="pl-1">
             <p className="h-[45px] pr-[33px] text-base font-normal">
@@ -39,12 +72,18 @@ export const PhoneCard = (product) => {
             </p>
             <div className="flex items-center justify-between gap-4 pb-[6px]">
               <p>{product.price} Сум</p>
-              <button
-                onClick={() => addProduct()}
-                className="bg-aureolin p-[6px]"
-              >
-                <ShoppingCartIcon />
-              </button>
+              {!addToCard ? (
+                <button
+                  onClick={() => addProduct()}
+                  className="bg-aureolin p-[6px]"
+                >
+                  <ShoppingCartIcon />
+                </button>
+              ) : (
+                <button onClick={removeData} className="bg-primary p-[6px]">
+                  <DeleteCardIcon />
+                </button>
+              )}
             </div>
           </div>
         </>
