@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { useGetAllIdDataQuery } from "../../redux/service/all-product";
 import { StarsIcon } from "../../assets/icon/stars-icon";
 import { LikeIcon } from "../../assets/icon/like-icon";
-import { add } from "../../redux/reducer/product-reducer";
+import { add, setLike, removeLike } from "../../redux/reducer/product-reducer";
 import { useDispatch } from "react-redux";
-import { loadState } from "../../config/storege";
+import { useSelector } from "react-redux";
 import { LikeRed } from "../../assets/icon/like-red";
 const SinglePage = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,8 @@ const SinglePage = () => {
   const { data } = useGetAllIdDataQuery(id);
   const [save, setSave] = React.useState(false);
   const [newLike, setLikeData] = React.useState(false);
-  const { like } = loadState("product");
+  const like = useSelector((state) => state.product.like);
+  console.log(newLike);
   React.useEffect(() => {
     setLikeData(like.some((item) => item.id == id));
   }, [like, id]);
@@ -21,6 +22,13 @@ const SinglePage = () => {
   const submit = () => {
     dispatch(add(data));
     setSave(true);
+  };
+
+  const likeData = (product) => {
+    dispatch(setLike(product));
+  };
+  const removeLikeData = (product) => {
+    dispatch(removeLike({ id: product.id }));
   };
 
   if (data) {
@@ -38,11 +46,17 @@ const SinglePage = () => {
             (0)
           </p>
           {!newLike ? (
-            <button className="flex items-center gap-[12px] text-base font-normal text-carbon">
+            <button
+              onClick={() => likeData(data)}
+              className="flex items-center gap-[12px] text-base font-normal text-carbon"
+            >
               <LikeIcon /> В избранное
             </button>
           ) : (
-            <button className="flex items-center gap-[12px] text-base font-normal text-carbon">
+            <button
+              onClick={() => removeLikeData(data)}
+              className="flex items-center gap-[12px] text-base font-normal text-carbon"
+            >
               <LikeRed /> В избранное
             </button>
           )}

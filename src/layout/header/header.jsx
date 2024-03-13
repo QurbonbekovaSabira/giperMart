@@ -13,14 +13,12 @@ import { CardModal } from "../../components/card-modal/card-modal";
 import { XIcon } from "../../assets/icon/x-icon";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { loadState } from "../../config/storege";
 import { useSelector } from "react-redux";
 import { LikeRed } from "../../assets/icon/like-red";
 export const Header = () => {
   let [isOpen, setIsOpen] = React.useState(false);
   const { pathname } = useLocation();
-  const { like } = loadState("product");
-  const [newLike, setLike] = React.useState(like);
+  const like = useSelector((state) => state?.product?.like);
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
@@ -94,7 +92,7 @@ export const Header = () => {
             to={"/likes"}
             className="flex flex-col items-center text-base font-normal text-sys-light-on-surface"
           >
-            {newLike?.length ? <LikeRed /> : <LikeIcon />} Избранное
+            {like?.length ? <LikeRed /> : <LikeIcon />} Избранное
           </Link>
           <Link
             to={"/user/basket"}

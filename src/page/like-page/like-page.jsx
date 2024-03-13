@@ -4,15 +4,14 @@ import { loadState } from "../../config/storege";
 import { PhoneCard } from "../../components/phone-card";
 import { useSelector } from "react-redux";
 const LikePage = () => {
-  const data = loadState("product");
-
-  const [newData, setData] = React.useState(data);
-
+  // const data = loadState("product");
+  const data = useSelector((state) => state?.product.like);
+  console.log(data);
   return (
     <>
-      {data.like.length ? (
+      {data.length ? (
         <div className="container flex flex-wrap gap-[30px] py-[50px]">
-          {newData?.like?.map((item) => (
+          {data?.map((item) => (
             <PhoneCard key={item.id} {...item} />
           ))}
         </div>
